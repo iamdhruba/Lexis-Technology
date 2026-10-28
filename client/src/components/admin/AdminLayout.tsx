@@ -95,7 +95,7 @@ export default function AdminLayout({
   children,
 }: AdminLayoutProps) {
   const [collapsed, setCollapsed] = useState(
-    () => localStorage.getItem('edujung_admin_sidebar_collapsed') === 'true',
+    () => localStorage.getItem('lexis_admin_sidebar_collapsed') === 'true',
   );
   const [mobileOpen, setMobileOpen] = useState(false);
   const { pathname } = useLocation();
@@ -118,7 +118,7 @@ export default function AdminLayout({
   const toggleSidebar = () => {
     setCollapsed((value) => {
       const nextValue = !value;
-      localStorage.setItem('edujung_admin_sidebar_collapsed', String(nextValue));
+      localStorage.setItem('lexis_admin_sidebar_collapsed', String(nextValue));
       return nextValue;
     });
   };

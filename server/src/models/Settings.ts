@@ -15,10 +15,10 @@ export interface ISettings extends Document {
 
 const SettingsSchema = new Schema<ISettings>(
   {
-    siteName: { type: String, default: 'EduJung Co. Ltd.' },
+    siteName: { type: String, default: 'Lexis Technology' },
     logo: { type: String, default: '/logo.png' },
     phone: { type: String, default: '+977-XXXXXXXXXX' },
-    email: { type: String, default: 'info@edujung.com' },
+    email: { type: String, default: 'info@lexistechnology.com' },
     address: { type: String, default: 'Kathmandu, Nepal' },
     hours: { type: String, default: 'Sunday - Friday: 9:00 AM - 6:00 PM' },
     socialLinks: { type: [Object], default: [] },

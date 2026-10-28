@@ -57,11 +57,11 @@ export async function sendPasswordResetEmail({
   const { data, error } = await resend.emails.send({
     from: config.resendFromEmail,
     to: email,
-    subject: 'Reset your EduJung password',
+    subject: 'Reset your Lexis Technology password',
     text: [
       `Hello ${name},`,
       '',
-      'Use the link below to reset your EduJung password. It expires in one hour.',
+      'Use the link below to reset your Lexis Technology password. It expires in one hour.',
       resetUrl,
       '',
       'If you did not request this change, you can ignore this email.',

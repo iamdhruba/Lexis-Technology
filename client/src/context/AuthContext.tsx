@@ -23,10 +23,10 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 function storedUser(): AuthUser | null {
   try {
-    const value = localStorage.getItem('edujung_user');
+    const value = localStorage.getItem('lexis_user');
     return value ? (JSON.parse(value) as AuthUser) : null;
   } catch {
-    localStorage.removeItem('edujung_user');
+    localStorage.removeItem('lexis_user');
     return null;
   }
 }
@@ -34,25 +34,25 @@ function storedUser(): AuthUser | null {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(storedUser);
   const [isLoading, setIsLoading] = useState(
-    () => !!localStorage.getItem('edujung_token')
+    () => !!localStorage.getItem('lexis_token')
   );
 
   const logout = useCallback(() => {
-    localStorage.removeItem('edujung_token');
-    localStorage.removeItem('edujung_user');
+    localStorage.removeItem('lexis_token');
+    localStorage.removeItem('lexis_user');
     setUser(null);
     setIsLoading(false);
   }, []);
 
   const login = useCallback((token: string, nextUser: AuthUser) => {
-    localStorage.setItem('edujung_token', token);
-    localStorage.setItem('edujung_user', JSON.stringify(nextUser));
+    localStorage.setItem('lexis_token', token);
+    localStorage.setItem('lexis_user', JSON.stringify(nextUser));
     setUser(nextUser);
     setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('edujung_token');
+    const token = localStorage.getItem('lexis_token');
     if (!token) {
       setIsLoading(false);
       return;
@@ -60,7 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     getCurrentUser()
       .then((currentUser) => {
-        localStorage.setItem('edujung_user', JSON.stringify(currentUser));
+        localStorage.setItem('lexis_user', JSON.stringify(currentUser));
         setUser(currentUser);
       })
       .catch(logout)
@@ -68,8 +68,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [logout]);
 
   useEffect(() => {
-    window.addEventListener('edujung:unauthorized', logout);
-    return () => window.removeEventListener('edujung:unauthorized', logout);
+    window.addEventListener('lexis:unauthorized', logout);
+    return () => window.removeEventListener('lexis:unauthorized', logout);
   }, [logout]);
 
   const value = useMemo(

@@ -15,7 +15,7 @@ export async function uploadToCloud(filePath: string): Promise<string> {
   if (!enabled) {
     throw new Error('Cloudinary not configured');
   }
-  const result = await cloudinary.uploader.upload(filePath, { folder: 'edujung' });
+  const result = await cloudinary.uploader.upload(filePath, { folder: 'lexis-technology' });
   return result.secure_url;
 }
 

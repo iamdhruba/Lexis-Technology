@@ -12,7 +12,7 @@ const isProduction = nodeEnv === 'production';
 const mongodbUri =
   process.env.MONGODB_URI ||
   process.env.MONGO_URI ||
-  (isProduction ? '' : 'mongodb://127.0.0.1:27017/edujung');
+  (isProduction ? '' : 'mongodb://127.0.0.1:27017/lexis_technology');
 const jwtSecret =
   process.env.JWT_SECRET || (isProduction ? '' : 'dev-secret-change-me');
 const adminPassword =
@@ -65,13 +65,13 @@ export const config = {
   isProduction,
   port,
   mongodbUri,
-  mongodbDb: process.env.MONGODB_DB || 'edujung',
+  mongodbDb: process.env.MONGODB_DB || 'lexis_technology',
   jwtSecret,
   corsOrigins,
   frontendUrl,
   uploadsDir: path.join(serverRoot, 'uploads'),
   clientDistDir: path.resolve(serverRoot, '..', 'client', 'dist'),
-  adminEmail: process.env.ADMIN_EMAIL || 'admin@edujung.com',
+  adminEmail: process.env.ADMIN_EMAIL || 'admin@lexistechnology.com',
   adminPassword,
   cloudinary: {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
@@ -81,5 +81,5 @@ export const config = {
   resendApiKey: process.env.RESEND_API_KEY || '',
   resendFromEmail:
     process.env.RESEND_FROM_EMAIL || 'noreply@hansoltechnology.com.np',
-  resendToEmail: process.env.RESEND_TO_EMAIL || 'info@edujung.com',
+  resendToEmail: process.env.RESEND_TO_EMAIL || 'info@lexistechnology.com',
 };

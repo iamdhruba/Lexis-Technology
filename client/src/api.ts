@@ -57,7 +57,7 @@ function invalidatePageList() {
 }
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('edujung_token');
+  const token = localStorage.getItem('lexis_token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -77,11 +77,11 @@ api.interceptors.response.use(
     if (
       error.response?.status === 401 &&
       !isPublicAuthRequest &&
-      localStorage.getItem('edujung_token')
+      localStorage.getItem('lexis_token')
     ) {
-      localStorage.removeItem('edujung_token');
-      localStorage.removeItem('edujung_user');
-      window.dispatchEvent(new Event('edujung:unauthorized'));
+      localStorage.removeItem('lexis_token');
+      localStorage.removeItem('lexis_user');
+      window.dispatchEvent(new Event('lexis:unauthorized'));
     }
     return Promise.reject(error);
   }

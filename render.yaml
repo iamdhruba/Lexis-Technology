@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: edujung-api
+    name: lexis-technology-api
     runtime: node
     rootDir: server
     buildCommand: npm ci && npm run build
@@ -10,7 +10,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: MONGODB_DB
-        value: edujung
+        value: lexis_technology
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET

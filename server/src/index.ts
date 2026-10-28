@@ -53,7 +53,7 @@ app.get('/', (_req, res) => {
     return;
   }
   res.json({
-    service: 'EduJung API',
+    service: 'Lexis Technology API',
     health: '/api/health',
   });
 });
