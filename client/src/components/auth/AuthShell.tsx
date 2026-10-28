@@ -13,15 +13,18 @@ export default function AuthShell({
   children,
 }: AuthShellProps) {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-white px-4 py-10">
+    <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-10">
       <div className="w-full max-w-md border border-gray-200 bg-white p-7 shadow-lg sm:p-9">
         <div className="mb-7 text-center">
-          <Link to="/" aria-label="Back to EduJung home">
-            <img
-              src="/logo.png"
-              alt="EduJung Co. Ltd."
-              className="mx-auto h-20 w-auto"
-            />
+          <Link
+            to="/"
+            aria-label="Back to Lexis Technology home"
+            className="inline-flex items-center gap-2 text-2xl font-black tracking-tight text-blue-900 transition hover:text-blue-700"
+          >
+            <span className="flex h-10 w-10 items-center justify-center bg-blue-600 text-white font-extrabold text-xl shadow-md">
+              L
+            </span>
+            <span>Lexis <span className="text-blue-600 font-bold">Technology</span></span>
           </Link>
           <h1 className="mt-4 text-2xl font-bold text-blue-900">{title}</h1>
           <p className="mt-2 text-sm text-gray-500">{subtitle}</p>

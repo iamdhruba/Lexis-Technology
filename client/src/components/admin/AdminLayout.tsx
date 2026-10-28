@@ -153,10 +153,7 @@ export default function AdminLayout({
       >
         <div className="flex h-20 items-center border-b border-white/10 px-5">
           <Link to="/" className="flex min-w-0 items-center gap-3">
-            <img src="/logo.png" alt="" className="h-11 w-11 shrink-0 object-contain" />
-            <div className={`min-w-0 ${collapsed ? 'lg:hidden' : ''}`}>
-                <p className="truncate font-bold">EduJung</p>
-                <p className="text-xs text-white/50">Content Admin</p>
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-blue-600 text-white font-extrabold text-lg shadow">L</span><div className={`min-w-0 ${collapsed ? 'lg:hidden' : ''}`}><p className="truncate font-bold">Lexis Tech</p><p className="text-xs text-white/50">Admin Suite</p>
             </div>
           </Link>
         </div>
