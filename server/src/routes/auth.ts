@@ -171,7 +171,7 @@ router.post('/forgot-password', authRateLimit, async (req, res) => {
           name: user.name,
           resetUrl,
         });
-      } catch (error) {
+      } catch (error: any) {
         user.resetPasswordTokenHash = undefined;
         user.resetPasswordExpires = undefined;
         await user.save();
@@ -182,11 +182,8 @@ router.post('/forgot-password', authRateLimit, async (req, res) => {
     res.json({
       message: 'If that email is registered, a reset link has been sent.',
     });
-  } catch (error) {
-    console.error('Password reset email failed', error);
-    res.status(503).json({
-      error: 'Password reset email is temporarily unavailable.',
-    });
+  } catch (error: any) {
+    console.error('Password reset email failed:', error); res.status(503).json({ error: error?.message || 'Password reset email is temporarily unavailable.' });
   }
 });
 
