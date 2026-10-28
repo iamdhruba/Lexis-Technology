@@ -307,7 +307,7 @@ export default function AdminPageEditor() {
                   value={page.countryName || ''}
                   onChange={(event) => setPage({ ...page, countryName: event.target.value })}
                   className="w-full border border-gray-300 px-3 py-2 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                  placeholder="United Kingdom"
+                  placeholder="Web Development"
                 />
               </label>
               <label className="block">
@@ -326,7 +326,7 @@ export default function AdminPageEditor() {
                     })
                   }
                   className="w-full border border-gray-300 px-3 py-2 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                  placeholder="UK, United Kingdom"
+                  placeholder="Web, Website, Frontend"
                 />
               </label>
             </>
@@ -361,7 +361,7 @@ export default function AdminPageEditor() {
             <h2 className="text-lg font-bold text-gray-900">Content sections</h2>
             <p className="mt-1 text-sm text-gray-500">
               {studyAbroadEditor
-                ? 'Public page order: country hero, universities, then the country introduction and benefit cards.'
+                ? 'Public page order: service hero, portfolio projects, then the service introduction and benefit cards.'
                 : 'Expand a section to edit its content and images.'}
             </p>
           </div>

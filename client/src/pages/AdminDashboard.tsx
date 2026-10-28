@@ -95,7 +95,7 @@ export default function AdminDashboard() {
               <span className="text-2xl text-blue-700" aria-hidden="true">&rarr;</span>
             </div>
             <p className="mt-6 text-sm font-semibold text-blue-700">
-              Manage countries and universities
+              Manage services & portfolio
             </p>
           </Link>
 

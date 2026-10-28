@@ -63,7 +63,7 @@ export default function AdminStudyAbroad() {
 
     if (!name || !slug) {
       setMessageType('error');
-      setMessage('Country name and URL slug are required.');
+      setMessage('Service name and URL slug are required.');
       return;
     }
 
@@ -118,7 +118,7 @@ export default function AdminStudyAbroad() {
     } catch (error: any) {
       setMessageType('error');
       setMessage(
-        error.response?.data?.error || 'The country could not be added.'
+        error.response?.data?.error || 'The service could not be added.'
       );
     } finally {
       setSavingCountry(false);
@@ -171,13 +171,13 @@ export default function AdminStudyAbroad() {
             }}
             className="shrink-0 border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50"
           >
-            + Add country
+            + Add Service
           </button>
         </div>
 
         {loading ? (
           <div className="p-10 text-center text-sm text-gray-500">
-            Loading countries...
+            Loading services...
           </div>
         ) : (
           <div className="grid gap-4 p-5 md:grid-cols-2 xl:grid-cols-3">
@@ -209,7 +209,7 @@ export default function AdminStudyAbroad() {
                     to={`/admin/study-abroad/edit/${country.slug}`}
                     className="border border-blue-600 px-3 py-2 text-center text-sm font-semibold text-blue-700 hover:bg-blue-50"
                   >
-                    Update country
+                    Edit Page
                   </Link>
                   <Link
                     to={`/admin/study-abroad/${country.slug}/universities`}
@@ -233,7 +233,7 @@ export default function AdminStudyAbroad() {
                   >
                     {deletingCountry === country.slug
                       ? 'Deleting...'
-                      : 'Delete country'}
+                      : 'Delete Service'}
                   </button>
                 </div>
               </article>
@@ -254,10 +254,10 @@ export default function AdminStudyAbroad() {
             <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
               <div>
                 <h2 id="add-country-title" className="text-lg font-bold text-gray-900">
-                  Add country
+                  Add Service
                 </h2>
                 <p className="mt-1 text-sm text-gray-500">
-                  A complete editable study-abroad page will be created.
+                  A complete editable service page will be created.
                 </p>
               </div>
               <button
@@ -279,7 +279,7 @@ export default function AdminStudyAbroad() {
               )}
               <label className="block">
                 <span className="mb-1.5 block text-sm font-semibold text-gray-700">
-                  Country name
+                  Service name
                 </span>
                 <input
                   value={countryName}
@@ -288,7 +288,7 @@ export default function AdminStudyAbroad() {
                     setCountrySlug(makeSlug(event.target.value));
                   }}
                   className="w-full border border-gray-300 bg-white px-3 py-2"
-                  placeholder="New Zealand"
+                  placeholder="E-Commerce Solutions"
                   autoFocus
                   required
                 />
@@ -307,7 +307,7 @@ export default function AdminStudyAbroad() {
                       setCountrySlug(makeSlug(event.target.value))
                     }
                     className="min-w-0 flex-1 px-3 py-2 outline-none"
-                    placeholder="new-zealand"
+                    placeholder="ecommerce-solutions"
                     required
                   />
                 </div>
@@ -330,7 +330,7 @@ export default function AdminStudyAbroad() {
                   disabled={savingCountry}
                   className="bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-900 disabled:opacity-60"
                 >
-                  {savingCountry ? 'Adding...' : 'Add country'}
+                  {savingCountry ? 'Adding...' : 'Add Service'}
                 </button>
               </div>
             </form>
@@ -349,7 +349,7 @@ export default function AdminStudyAbroad() {
           >
             <div className="border-b border-red-100 bg-red-50 px-5 py-4">
               <h2 id="delete-country-title" className="text-lg font-bold text-red-800">
-                Delete country?
+                Delete Service?
               </h2>
             </div>
             <div className="p-5">
@@ -361,7 +361,7 @@ export default function AdminStudyAbroad() {
                 id="delete-country-description"
                 className="mt-2 text-sm leading-6 text-gray-600"
               >
-                This permanently removes the country page and all universities
+                This permanently removes the service page and all portfolio projects
                 assigned to it. This action cannot be undone.
               </p>
               <div className="mt-6 flex justify-end gap-3 border-t border-gray-200 pt-4">

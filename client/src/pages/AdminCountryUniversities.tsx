@@ -25,7 +25,7 @@ export default function AdminCountryUniversities() {
       })
       .catch(() => {
         setMessageType('error');
-        setMessage('Country universities could not be loaded.');
+        setMessage('Service projects could not be loaded.');
       })
       .finally(() => setLoading(false));
   }, [slug]);
@@ -111,10 +111,10 @@ export default function AdminCountryUniversities() {
       });
       setUniversitiesPage(saved);
       setMessageType('success');
-      setMessage(`${countryName} universities saved successfully.`);
+      setMessage(`${countryName} projects saved successfully.`);
     } catch {
       setMessageType('error');
-      setMessage('Universities could not be saved.');
+      setMessage('Projects could not be saved.');
     } finally {
       setSaving(false);
     }
@@ -148,7 +148,7 @@ export default function AdminCountryUniversities() {
             disabled={saving || loading}
             className="bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-900 disabled:opacity-60"
           >
-            {saving ? 'Saving...' : 'Save universities'}
+            {saving ? 'Saving...' : 'Save Projects'}
           </button>
         </>
       }
@@ -159,7 +159,7 @@ export default function AdminCountryUniversities() {
         <div className="flex items-center justify-between gap-4 border-b border-gray-200 px-5 py-4">
           <div>
             <h2 className="font-bold text-gray-900">
-              Universities in {countryName}
+              Projects for {countryName}
             </h2>
             <p className="mt-1 text-sm text-gray-500">
               Add the university name, description, website, and image.
@@ -171,13 +171,13 @@ export default function AdminCountryUniversities() {
             disabled={loading || !universitiesPage}
             className="border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50 disabled:opacity-60"
           >
-            + Add university
+            + Add Project
           </button>
         </div>
 
         {loading ? (
           <div className="p-10 text-center text-sm text-gray-500">
-            Loading universities...
+            Loading projects...
           </div>
         ) : countryUniversities.length === 0 ? (
           <div className="p-10 text-center text-sm text-gray-500">

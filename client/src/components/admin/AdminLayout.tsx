@@ -7,6 +7,7 @@ import { useAuth } from '../../context/AuthContext';
 type IconName =
   | 'dashboard'
   | 'pages'
+  | 'services'
   | 'study'
   | 'users'
   | 'settings'
@@ -31,10 +32,18 @@ function Icon({ name, className = 'h-5 w-5' }: { name: IconName; className?: str
         <path d="M8 13h8M8 17h8" />
       </>
     ),
+    services: (
+      <>
+        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+        <polyline points="2 17 12 22 22 17" />
+        <polyline points="2 12 12 17 22 12" />
+      </>
+    ),
     study: (
       <>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+        <polyline points="2 17 12 22 22 17" />
+        <polyline points="2 12 12 17 22 12" />
       </>
     ),
     users: (
@@ -105,7 +114,7 @@ export default function AdminLayout({
   const navItems = [
     { to: '/admin', label: 'Dashboard', icon: 'dashboard' as IconName },
     { to: '/admin/pages', label: 'Pages', icon: 'pages' as IconName },
-    { to: '/admin/study-abroad', label: 'Study Abroad', icon: 'study' as IconName },
+    { to: '/admin/study-abroad', label: 'Services & Portfolio', icon: 'services' as IconName },
     { to: '/admin/users', label: 'User Records', icon: 'users' as IconName },
     { to: '/admin/settings', label: 'Site Settings', icon: 'settings' as IconName },
   ];
