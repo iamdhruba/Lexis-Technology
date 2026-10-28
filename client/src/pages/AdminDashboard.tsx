@@ -86,10 +86,10 @@ export default function AdminDashboard() {
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-blue-600">Destinations</p>
-                <h3 className="mt-2 text-xl font-bold text-gray-900">Study Abroad</h3>
+                <p className="text-xs font-bold uppercase tracking-wider text-blue-600">Solutions</p>
+                <h3 className="mt-2 text-xl font-bold text-gray-900">Services & Portfolio</h3>
                 <p className="mt-2 text-sm leading-6 text-gray-500">
-                  Add countries, edit destination pages, and manage universities.
+                  Add IT services, edit dedicated service pages, and manage portfolio projects.
                 </p>
               </div>
               <span className="text-2xl text-blue-700" aria-hidden="true">&rarr;</span>
