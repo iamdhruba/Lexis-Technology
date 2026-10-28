@@ -9,13 +9,13 @@ async function seed() {
   await connectDB();
 
   const existing = await AdminUser.findOne({ email: config.adminEmail });
+  const hash = await bcrypt.hash(config.adminPassword, 12);
   if (!existing) {
     if (config.isProduction && config.adminPassword.length < 12) {
       throw new Error(
         'No admin account exists yet. Set ADMIN_PASSWORD in Render to a secure password of at least 12 characters for the first deployment.'
       );
     }
-    const hash = await bcrypt.hash(config.adminPassword, 12);
     await AdminUser.create({
       name: 'Lexis Technology Administrator',
       email: config.adminEmail,
@@ -24,19 +24,11 @@ async function seed() {
     });
     console.log('Admin user created:', config.adminEmail);
   } else {
-    let changed = false;
-    if (!existing.name || existing.name.includes('EduJung')) {
-      existing.name = 'Lexis Technology Administrator';
-      changed = true;
-    }
-    if (existing.role !== 'superadmin') {
-      existing.role = 'superadmin';
-      changed = true;
-    }
-    if (changed) {
-      await existing.save();
-      console.log('Configured admin account updated to Lexis Technology superadmin');
-    }
+    existing.name = 'Lexis Technology Administrator';
+    existing.role = 'superadmin';
+    existing.passwordHash = hash;
+    await existing.save();
+    console.log('Configured admin account updated with new password and superadmin role:', config.adminEmail);
   }
 
   const settingsExist = await Settings.findOne();
