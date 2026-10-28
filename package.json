@@ -1,0 +1,19 @@
+{
+  "name": "lexis-technology",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lexis Technology website monorepo - Web Development, Video & Photo Editing Services",
+  "engines": {
+    "node": ">=20 <25"
+  },
+  "scripts": {
+    "postinstall": "npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "build": "npm --prefix server run build && npm --prefix client run build",
+    "start": "npm --prefix server start",
+    "seed": "npm --prefix server run seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
