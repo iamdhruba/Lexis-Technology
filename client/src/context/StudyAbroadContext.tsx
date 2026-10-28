@@ -128,16 +128,14 @@ export function StudyAbroadProvider({ children }: { children: ReactNode }) {
     cachedPages ? toStudyCountries(cachedPages) : fallbackServices
   );
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error] = useState(false);
 
   const refresh = async () => {
     try {
-      setError(false);
       const pages = await getPages();
       setCountries(toStudyCountries(pages));
     } catch {
       setCountries(fallbackServices);
-      setError(true);
     } finally {
       setLoading(false);
     }

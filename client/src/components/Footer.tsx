@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useSettings } from '../context/SettingsContext';
-import { useStudyAbroad } from '../context/StudyAbroadContext';
+import { useSettings, defaultSiteSettings } from '../context/SettingsContext';
+import { useStudyAbroad, fallbackServices } from '../context/StudyAbroadContext';
 import BrandName from './BrandName';
 
 const defaultColumns = [
@@ -60,45 +60,23 @@ function FooterLink({ item }: { item: { label: string; url?: string } }) {
 }
 
 export default function Footer() {
-  const {
-    settings,
-    loading: settingsLoading,
-    error: settingsError,
-  } = useSettings();
-  const {
-    countries: serviceLinks,
-    loading: servicesLoading,
-    error: servicesError,
-  } = useStudyAbroad();
+  const { settings } = useSettings();
+  const { countries: serviceLinks } = useStudyAbroad();
 
-  if (settingsError) {
-    return (
-      <footer className="bg-[#0a0f1d] py-10 text-center text-white">
-        <p className="font-semibold">Something went wrong.</p>
-        <p className="mt-2 text-sm text-white/65">
-          Website information could not be loaded.
-        </p>
-      </footer>
-    );
-  }
-
-  if (settingsLoading || !settings) {
-    return (
-      <footer className="bg-[#0a0f1d] py-10 text-center text-sm text-white/65">
-        Loading website information...
-      </footer>
-    );
-  }
-
-  const siteName = settings?.siteName || 'Lexis Technology';
-  const columns = settings?.footerColumns?.length
-    ? settings.footerColumns
+  // Always use active settings or fallback so the footer never breaks
+  const activeSettings = settings || defaultSiteSettings;
+  const siteName = activeSettings.siteName || 'Lexis Technology';
+  const columns = activeSettings.footerColumns?.length
+    ? activeSettings.footerColumns
     : defaultColumns;
-  const phone = settings?.phone || '+977-9800000000';
-  const email = settings?.email || 'contact@lexistechnology.com';
-  const address = settings?.address || 'Kathmandu, Nepal / Remote Worldwide';
-  const hours = settings?.hours || 'Monday - Saturday: 9:00 AM - 6:00 PM';
+  const phone = activeSettings.phone || '+977-9800000000';
+  const email = activeSettings.email || 'contact@lexistechnology.com';
+  const address = activeSettings.address || 'Kathmandu, Nepal / Remote Worldwide';
+  const hours = activeSettings.hours || 'Monday - Saturday: 9:00 AM - 6:00 PM';
   const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
+
+  const activeServiceLinks =
+    serviceLinks && serviceLinks.length > 0 ? serviceLinks : fallbackServices;
 
   return (
     <footer className="bg-[#0a0f1d] text-white">
@@ -160,24 +138,16 @@ export default function Footer() {
                   All Services
                 </Link>
               </li>
-              {servicesLoading ? (
-                <li className="text-white/60">Loading services...</li>
-              ) : servicesError ? (
-                <li className="text-white/60">Something went wrong.</li>
-              ) : serviceLinks.length === 0 ? (
-                <li className="text-white/60">No services available.</li>
-              ) : (
-                serviceLinks.map((link) => (
-                  <li key={link.to}>
-                    <Link
-                      to={link.to}
-                      className="inline-block text-white/75 transition hover:translate-x-0.5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))
-              )}
+              {activeServiceLinks.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="inline-block text-white/75 transition hover:translate-x-0.5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </section>
 
@@ -200,9 +170,9 @@ export default function Footer() {
               <p className="max-w-xs">{hours}</p>
             </address>
 
-            {!!settings?.socialLinks?.length && (
+            {!!activeSettings?.socialLinks?.length && (
               <div className="mt-5 flex flex-wrap gap-2">
-                {settings.socialLinks.map((social) => (
+                {activeSettings.socialLinks.map((social) => (
                   <a
                     key={`${social.platform}-${social.url}`}
                     href={social.url}

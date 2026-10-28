@@ -74,11 +74,10 @@ const SettingsContext = createContext<SettingsContextValue>({
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<SiteSettings>(defaultSiteSettings);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error] = useState(false);
 
   const fetchSettings = async () => {
     try {
-      setError(false);
       const res = await api.get('/settings');
       if (res.data) {
         setSettings(res.data);
@@ -86,7 +85,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     } catch {
       // Fallback to default Lexis Technology settings gracefully
       setSettings(defaultSiteSettings);
-      setError(true);
     } finally {
       setLoading(false);
     }

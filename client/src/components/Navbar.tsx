@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useSettings } from '../context/SettingsContext';
-import { useStudyAbroad } from '../context/StudyAbroadContext';
+import { useSettings, defaultSiteSettings } from '../context/SettingsContext';
+import { useStudyAbroad, fallbackServices } from '../context/StudyAbroadContext';
 import { prefetchPage } from '../api';
 import BrandName from './BrandName';
 
@@ -11,15 +11,16 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const { isAuthenticated, isAdmin, logout } = useAuth();
   const { settings } = useSettings();
-  const {
-    countries: countryLinks,
-    loading: countriesLoading,
-    error: countriesError,
-  } = useStudyAbroad();
+  const { countries: countryLinks } = useStudyAbroad();
+
+  const activeSettings = settings || defaultSiteSettings;
+  const activeServiceLinks =
+    countryLinks && countryLinks.length > 0 ? countryLinks : fallbackServices;
+
   const servicePageActive =
     pathname === '/services' ||
     pathname === '/study-abroad' ||
-    countryLinks.some((link) => pathname === link.to);
+    activeServiceLinks.some((link) => pathname === link.to);
 
   const prefetchRoute = (to: string) => {
     const slug = to.replace(/^\//, '');
@@ -27,7 +28,7 @@ export default function Navbar() {
     prefetchPage(slug);
     if (
       slug === 'home' ||
-      countryLinks.some((country) => country.slug === slug)
+      activeServiceLinks.some((service) => service.slug === slug)
     ) {
       prefetchPage('universities');
     }
@@ -46,7 +47,7 @@ export default function Navbar() {
             L
           </div>
           <BrandName
-            name={settings?.siteName || 'Lexis Technology'}
+            name={activeSettings.siteName || 'Lexis Technology'}
             className="hidden text-xl font-bold tracking-tight text-blue-900 xl:block"
           />
         </Link>
@@ -103,33 +104,21 @@ export default function Navbar() {
               >
                 All Services Overview &rarr;
               </Link>
-              {countriesLoading ? (
-                <p className="px-4 py-2.5 text-sm text-gray-500">Loading...</p>
-              ) : countriesError ? (
-                <p className="px-4 py-2.5 text-sm text-gray-500">
-                  Something went wrong.
-                </p>
-              ) : countryLinks.length === 0 ? (
-                <p className="px-4 py-2.5 text-sm text-gray-500">
-                  No services available.
-                </p>
-              ) : (
-                countryLinks.map((link) => (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    onPointerEnter={() => prefetchRoute(link.to)}
-                    onFocus={() => prefetchRoute(link.to)}
-                    className={`block px-4 py-2.5 text-sm font-semibold transition hover:bg-blue-50 hover:text-blue-700 ${
-                      pathname === link.to
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-700'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))
-              )}
+              {activeServiceLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onPointerEnter={() => prefetchRoute(link.to)}
+                  onFocus={() => prefetchRoute(link.to)}
+                  className={`block px-4 py-2.5 text-sm font-semibold transition hover:bg-blue-50 hover:text-blue-700 ${
+                    pathname === link.to
+                      ? 'bg-blue-50 text-blue-700'
+                      : 'text-gray-700'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
 
@@ -262,32 +251,20 @@ export default function Navbar() {
               >
                 OUR SERVICES
               </Link>
-              {countriesLoading ? (
-                <p className="px-3 py-2.5 text-sm text-gray-500">Loading...</p>
-              ) : countriesError ? (
-                <p className="px-3 py-2.5 text-sm text-gray-500">
-                  Something went wrong.
-                </p>
-              ) : countryLinks.length === 0 ? (
-                <p className="px-3 py-2.5 text-sm text-gray-500">
-                  No services available.
-                </p>
-              ) : (
-                countryLinks.map((link) => (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    onClick={() => setOpen(false)}
-                    className={`block px-3 py-2.5 text-sm font-semibold ${
-                      pathname === link.to
-                        ? 'bg-blue-100 text-blue-900'
-                        : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))
-              )}
+              {activeServiceLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setOpen(false)}
+                  className={`block px-3 py-2.5 text-sm font-semibold ${
+                    pathname === link.to
+                      ? 'bg-blue-100 text-blue-900'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
 
             <Link
