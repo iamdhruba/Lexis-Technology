@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useSettings, defaultSiteSettings } from '../context/SettingsContext';
 import { useStudyAbroad, fallbackServices } from '../context/StudyAbroadContext';
 import BrandName from './BrandName';
+import BrandLogo from './BrandLogo';
 
 const defaultColumns = [
   {
@@ -87,9 +88,12 @@ export default function Footer() {
             aria-label={`${siteName} home`}
             className="inline-flex w-fit items-center gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
           >
-            <div className="flex h-14 w-14 items-center justify-center bg-blue-600 text-white font-extrabold text-2xl shadow-lg">
-              L
-            </div>
+            <BrandLogo
+              src={activeSettings.logo}
+              alt={siteName}
+              badgeSize="lg"
+              className="h-12 w-auto max-w-[200px] object-contain"
+            />
             <div>
               <BrandName
                 name={siteName}

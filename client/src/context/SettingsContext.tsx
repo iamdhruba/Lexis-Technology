@@ -33,7 +33,7 @@ export const defaultSiteSettings: SiteSettings = {
         { label: 'Video Editing & Reels', url: '/video-editing' },
         { label: 'Photo Retouching & Design', url: '/photo-editing' },
         { label: 'Managed IT & Cloud Hosting', url: '/it-solutions' },
-        { label: 'E-Commerce Development', url: '/web-development' },
+        { label: 'E-Commerce Solutions', url: '/web-development' },
         { label: 'Brand Identity Kits', url: '/photo-editing' },
       ],
     },
@@ -93,6 +93,24 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     fetchSettings();
   }, []);
+
+  // Dynamically update favicon across all pages when logo is changed or loaded
+  useEffect(() => {
+    if (settings?.logo) {
+      const selectors = ["link[rel*='icon']", "link[rel='apple-touch-icon']"];
+      const existingIcons = document.querySelectorAll<HTMLLinkElement>(selectors.join(','));
+      if (existingIcons.length > 0) {
+        existingIcons.forEach((el) => {
+          el.href = settings.logo;
+        });
+      } else {
+        const link = document.createElement('link');
+        link.rel = 'icon';
+        link.href = settings.logo;
+        document.head.appendChild(link);
+      }
+    }
+  }, [settings?.logo]);
 
   return (
     <SettingsContext.Provider

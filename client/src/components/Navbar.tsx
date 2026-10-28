@@ -5,6 +5,7 @@ import { useSettings, defaultSiteSettings } from '../context/SettingsContext';
 import { useStudyAbroad, fallbackServices } from '../context/StudyAbroadContext';
 import { prefetchPage } from '../api';
 import BrandName from './BrandName';
+import BrandLogo from './BrandLogo';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -43,9 +44,12 @@ export default function Navbar() {
           onFocus={() => prefetchRoute('/home')}
           className="flex shrink-0 items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
         >
-          <div className="flex h-10 w-10 items-center justify-center bg-blue-600 text-white font-extrabold text-xl shadow-md">
-            L
-          </div>
+          <BrandLogo
+            src={activeSettings.logo}
+            alt={activeSettings.siteName || 'Lexis Technology'}
+            badgeSize="md"
+            className="h-10 w-auto max-w-[180px] object-contain"
+          />
           <BrandName
             name={activeSettings.siteName || 'Lexis Technology'}
             className="hidden text-xl font-bold tracking-tight text-blue-900 xl:block"

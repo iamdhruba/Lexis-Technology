@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { useSettings } from '../../context/SettingsContext';
+import BrandLogo from '../BrandLogo';
 
 interface AuthShellProps {
   title: string;
@@ -12,10 +14,22 @@ export default function AuthShell({
   subtitle,
   children,
 }: AuthShellProps) {
+  const { settings } = useSettings();
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-10">
       <div className="w-full max-w-md border border-gray-200 bg-white p-7 shadow-lg sm:p-9">
         <div className="mb-7 text-center">
+          {settings?.logo && settings.logo !== '/logo.png' && (
+            <div className="mb-4 flex justify-center">
+              <BrandLogo
+                src={settings.logo}
+                alt={settings.siteName || 'Lexis Technology'}
+                badgeSize="md"
+                className="h-12 w-auto max-w-[180px] object-contain"
+              />
+            </div>
+          )}
           <h1 className="text-2xl font-bold text-blue-900">{title}</h1>
           <p className="mt-2 text-sm text-gray-500">{subtitle}</p>
         </div>

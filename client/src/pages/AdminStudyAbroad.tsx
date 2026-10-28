@@ -36,7 +36,7 @@ export default function AdminStudyAbroad() {
     } catch {
       setMessageType('error');
       setPages([]);
-      setMessage('Something went wrong. Study destinations could not be loaded.');
+      setMessage('Something went wrong. Services could not be loaded.');
     } finally {
       setLoading(false);
     }
@@ -72,36 +72,40 @@ export default function AdminStudyAbroad() {
     try {
       await createPage({
         slug,
-        title: `Study in ${name}`,
-        category: 'study-abroad',
+        title: name,
+        category: 'services',
         countryName: name,
         countryAliases: [name],
         order: countries.length + 10,
         isVisible: true,
-        metaDescription: `Study abroad opportunities, universities, and guidance for ${name}.`,
+        metaDescription: `Professional ${name} services by Lexis Technology. High quality delivery with modern standards.`,
         sections: [
           {
             type: 'pageHero',
             data: {
-              title: `Study in ${name}`,
-              subtitle: 'Explore Your Options',
+              title: name,
+              subtitle: 'Specialized Digital Solutions',
               backgroundImage: '',
             },
           },
           {
             type: 'richText',
             data: {
-              content: `<p>Add information about studying in ${name}.</p>`,
+              content: `<p>Discover our specialized ${name} services designed for businesses, creators, and modern brands.</p>`,
             },
           },
           {
             type: 'features',
             data: {
-              title: `Why ${name}?`,
+              title: `Why Choose Lexis for ${name}?`,
               items: [
                 {
-                  title: 'Study opportunity',
-                  description: 'Add details about this study destination.',
+                  title: 'High Performance & Quality',
+                  description: 'Engineered with top industry practices and premium creative polish.',
+                },
+                {
+                  title: 'Dedicated 1-on-1 Support',
+                  description: 'Direct communication and transparent iterations from start to finish.',
                 },
               ],
             },
@@ -150,17 +154,17 @@ export default function AdminStudyAbroad() {
 
   return (
     <AdminLayout
-      title="Study Abroad"
-      description="Manage destination pages and the universities shown for each country."
+      title="Services & Portfolio"
+      description="Manage IT service landing pages and showcase projects for Lexis Technology."
     >
       <ToastFeedback message={message} type={messageType} />
 
       <section className="border border-gray-200 bg-white">
         <div className="flex items-center justify-between gap-4 border-b border-gray-200 px-5 py-4">
           <div>
-            <h2 className="text-lg font-bold text-gray-900">Countries</h2>
+            <h2 className="text-lg font-bold text-gray-900">IT Services</h2>
             <p className="mt-1 text-sm text-gray-500">
-              Each country has its own public page and university results.
+              Each service has its own dedicated public page and portfolio showcase projects.
             </p>
           </div>
           <button
@@ -215,7 +219,7 @@ export default function AdminStudyAbroad() {
                     to={`/admin/study-abroad/${country.slug}/universities`}
                     className="border border-blue-600 px-3 py-2 text-center text-sm font-semibold text-blue-700 hover:bg-blue-50"
                   >
-                    Universities
+                    Portfolio Works
                   </Link>
                   <a
                     href={`/${country.slug}`}
@@ -265,7 +269,7 @@ export default function AdminStudyAbroad() {
                 onClick={() => setAddCountryOpen(false)}
                 disabled={savingCountry}
                 className="border border-gray-300 px-3 py-2 text-gray-600 hover:bg-gray-50 disabled:opacity-60"
-                aria-label="Close add country"
+                aria-label="Close add service"
               >
                 &times;
               </button>
@@ -288,7 +292,7 @@ export default function AdminStudyAbroad() {
                     setCountrySlug(makeSlug(event.target.value));
                   }}
                   className="w-full border border-gray-300 bg-white px-3 py-2"
-                  placeholder="E-Commerce Solutions"
+                  placeholder="E-Commerce Development"
                   autoFocus
                   required
                 />
@@ -307,7 +311,7 @@ export default function AdminStudyAbroad() {
                       setCountrySlug(makeSlug(event.target.value))
                     }
                     className="min-w-0 flex-1 px-3 py-2 outline-none"
-                    placeholder="ecommerce-solutions"
+                    placeholder="ecommerce-development"
                     required
                   />
                 </div>
@@ -379,7 +383,7 @@ export default function AdminStudyAbroad() {
                   disabled={Boolean(deletingCountry)}
                   className="bg-red-600 px-5 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:opacity-60"
                 >
-                  {deletingCountry ? 'Deleting...' : 'Delete country'}
+                  {deletingCountry ? 'Deleting...' : 'Delete Service'}
                 </button>
               </div>
             </div>

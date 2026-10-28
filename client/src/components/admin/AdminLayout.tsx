@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../../context/AuthContext';
+import { useSettings } from '../../context/SettingsContext';
+import BrandLogo from '../BrandLogo';
 
 type IconName =
   | 'dashboard'
@@ -110,6 +112,7 @@ export default function AdminLayout({
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { settings } = useSettings();
 
   const navItems = [
     { to: '/admin', label: 'Dashboard', icon: 'dashboard' as IconName },
@@ -162,7 +165,12 @@ export default function AdminLayout({
       >
         <div className="flex h-20 items-center border-b border-white/10 px-5">
           <Link to="/" className="flex min-w-0 items-center gap-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-blue-600 text-white font-extrabold text-lg shadow">L</span><div className={`min-w-0 ${collapsed ? 'lg:hidden' : ''}`}><p className="truncate font-bold">Lexis Tech</p><p className="text-xs text-white/50">Admin Suite</p>
+            <BrandLogo
+              src={settings?.logo}
+              alt="Lexis Tech"
+              badgeSize="sm"
+              className="h-8 w-auto max-w-[140px] object-contain"
+            /><div className={`min-w-0 ${collapsed ? 'lg:hidden' : ''}`}><p className="truncate font-bold">Lexis Tech</p><p className="text-xs text-white/50">Admin Suite</p>
             </div>
           </Link>
         </div>
