@@ -1,146 +1,82 @@
-# EduJung Co. Ltd. Website
+# Lexis Technology Website
 
-A full-stack website clone for EduJung Co. Ltd. built with:
+A full-stack, enterprise-grade IT & Digital Media Agency website for **Lexis Technology** built with:
 
-- **Frontend:** React + TypeScript + Vite + Tailwind CSS
+- **Frontend:** React + TypeScript + Vite + Tailwind CSS (Rectangular, high-contrast, modern tech blue design system)
 - **Backend:** Node.js + Express + TypeScript
 - **Database:** MongoDB + Mongoose
 - **Email:** Resend
 - **Image Storage:** Cloudinary (optional) / local uploads
 
-## Folder Structure
+---
 
-```
-EDUJUNG WEBSITE/
-├── client/          # React public site & admin dashboard
-├── server/          # Express API
-├── logo.png         # Company logo
+## 🎨 Theme & Services Overview
+
+### 1. Color Palette: Modern Tech Blue
+- **Primary Brand Color:** Royal & Electric Blue (`#2563eb`, `#1d4ed8`)
+- **Accent Glow:** Sky & Cyber Cyan (`#38bdf8`, `#0ea5e9`, `#60a5fa`)
+- **Surfaces & Backgrounds:** Clean White (`#ffffff`), Ice Blue tints (`#eff6ff`), Slate (`#f8fafc`)
+- **Dark Elements:** Deep Midnight Obsidian & Navy (`#0a0f1d`, `#070b16`)
+
+### 2. Core IT & Creative Services
+1. **Website Making & Web Development**
+   - Custom responsive websites, SaaS platforms, React/Next.js web apps, e-commerce stores, speed and SEO optimization.
+2. **Professional Video Editing**
+   - High-retention viral Shorts/Reels/TikToks, YouTube long-form editing, commercials, 4K color grading & motion graphics.
+3. **Photo Editing & Graphic Design**
+   - E-commerce studio product retouching, brand identity packages, vector logo design, social media creative packs.
+4. **Managed IT & Cloud Infrastructure**
+   - High-speed cloud hosting setup, domain configuration, SSL security audits, website maintenance, 24/7 technical monitoring.
+
+---
+
+## 📁 Monorepo Structure
+
+```text
+Lexis Technology/
+├── client/              # React public site & full Admin Dashboard
+│   ├── src/
+│   │   ├── components/  # Navbar, Footer, SectionRenderer, Sections
+│   │   ├── context/     # Auth, Settings, Service contexts
+│   │   ├── pages/       # Home, Service pages, Portfolio, Admin suite
+│   │   └── types.ts     # TypeScript models
+├── server/              # Express API & MongoDB backend
+│   ├── src/
+│   │   ├── models/      # Page, Settings, AdminUser, Contact
+│   │   ├── routes/      # Auth, Pages, Settings, Uploads, Contact
+│   │   └── seed.ts      # Database seeder for Lexis Technology
+├── package.json         # Root monorepo scripts
 └── README.md
 ```
 
-## Quick Start
+---
 
-### 1. Install dependencies
+## 🚀 Quick Start
 
+### 1. Run Development Server
 ```bash
-npm install
-```
-
-> **Windows/OneDrive users:** If root install fails with `EPERM` because a file is locked, run `npm install --ignore-scripts` at the root to install the `concurrently` helper (server and client dependencies must already be installed), then seed and run as shown below.
-
-If you still need to install server/client dependencies manually:
-
-```bash
-npm install --prefix server
-npm install --prefix client
-```
-
-### 2. Configure environment
-
-Copy `server/.env.example` to `server/.env` and fill in your values.
-`MONGODB_URI` and `JWT_SECRET` are required in production. Use
-`MONGODB_DB` to select the database (defaults to `edujung`).
-
-### 3. Seed the database (one-time)
-
-```bash
-npm run seed --prefix server
-```
-
-Development admin: `admin@edujung.com` / `Admin1234`. Set a unique
-`ADMIN_EMAIL` and a strong `ADMIN_PASSWORD` before deploying.
-
-### 4. Run development servers
-
-You can start both the API and the client with a single command from the project root:
-
-```bash
+# Starts both frontend (http://localhost:5173) and backend (http://localhost:5000)
 npm run dev
 ```
 
-Or start them separately:
-
+Or run client-only:
 ```bash
-# Terminal 1 - API (http://localhost:5000)
-npm run dev --prefix server
-
-# Terminal 2 - Client (http://localhost:5173)
-npm run dev --prefix client
+npm --prefix client run dev
 ```
 
-Open http://localhost:5173 to view the site.
-Open http://localhost:5173/admin to access the admin dashboard.
-
-> **Note:** If you see "Failed to load page", make sure MongoDB is running and the server is started as shown above.
-
-## Vercel + Render Deployment
-
-The repository includes:
-
-- `vercel.json` for the Vite frontend and SPA deep-link routing.
-- `render.yaml` for the Express API, database seeding, and health checks.
-
-### 1. Deploy the API on Render
-
-In Render, create a **Blueprint** from this GitHub repository. Render detects
-`render.yaml` and creates the `edujung-api` web service.
-
-Enter these values when Render asks for environment variables:
-
-```dotenv
-MONGODB_URI=mongodb+srv://USER:PASSWORD@HOST/?retryWrites=true&w=majority
-CORS_ORIGIN=https://your-vercel-project.vercel.app
-FRONTEND_URL=https://your-vercel-project.vercel.app
-ADMIN_EMAIL=admin@example.com
-ADMIN_PASSWORD=use-a-unique-password-with-at-least-12-characters
-CLOUDINARY_CLOUD_NAME=your-cloud-name
-CLOUDINARY_API_KEY=your-api-key
-CLOUDINARY_API_SECRET=your-api-secret
-RESEND_API_KEY=your-resend-key
-RESEND_FROM_EMAIL=noreply@your-verified-domain.com
-RESEND_TO_EMAIL=info@example.com
+### 2. Seed Database
+Make sure MongoDB is running and configured in `server/.env`, then run:
+```bash
+npm run seed
 ```
 
-`JWT_SECRET` is generated securely by Render. The start command seeds a new
-database idempotently before starting the API. Render supplies `PORT`
-automatically.
-
-After deployment, confirm that this URL returns JSON:
-
-```text
-https://your-render-service.onrender.com/api/health
+### 3. Build for Production
+```bash
+npm run build
 ```
 
-### 2. Deploy the frontend on Vercel
+---
 
-Import the same GitHub repository into Vercel and keep the project root as the
-repository root. `vercel.json` supplies the install command, build command,
-output folder, and SPA rewrite.
-
-Add this Vercel environment variable for Production, Preview, and Development:
-
-```dotenv
-VITE_API_BASE=https://your-render-service.onrender.com/api
-```
-
-Deploy the Vercel project. If its final public URL differs from the value entered
-for `CORS_ORIGIN`, update `CORS_ORIGIN` in Render and redeploy the API. Multiple
-exact frontend URLs can be comma-separated.
-
-### 3. Production checks
-
-- Open the Vercel homepage and a direct route such as `/about`.
-- Log in at `/admin/login`.
-- Save a page edit and upload an image.
-- Submit the contact form and verify the configured inbox.
-
-Cloudinary is required for durable image uploads on Render because its local
-filesystem is not persistent. Never commit `server/.env`.
-
-## Admin Dashboard
-
-Login at `/login`. From the dashboard you can edit every page and all content
-sections, review registered users, and manage roles. New signups receive the
-`user` role and cannot access administration features. Images can be uploaded to
-Cloudinary when credentials are provided; otherwise they are stored locally in
-the `uploads` folder.
+## 🛡️ Admin Dashboard
+- Access at `/admin` (or `/login`).
+- Superadmin management for all page sections, contact form submissions, site settings, and team members.
